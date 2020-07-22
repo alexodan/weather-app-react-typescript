@@ -27,7 +27,7 @@ const App: React.FC = () => {
   );
 
   useEffect(() => {
-    fetchCurrentByCityId("8224").then((data: CurrentWeatherResponse) => {
+    fetchCurrentByCityId("3433955").then((data: CurrentWeatherResponse) => {
       const { weather, temp } = data;
       setCurrentWeatherInfo({
         temp: String(temp.current),
@@ -46,14 +46,15 @@ const App: React.FC = () => {
         todayWeather={currentWeatherInfo.condition}
         condition={currentWeatherInfo.condition}
       />
-      <h1>Done!</h1>
-      <div className="flex mb-4">
-        <Highlight title="Visibility" value={6.4} unit="miles" />
-      </div>
-      <div className="flex mb-4">
-        <Highlight title="Wind status" value={7} unit="mph" other="WSW" />
-      </div>
-      <Card date="20-07-19" weather="HeavyCloud" maxTemp={20} minTemp={10} />
+      <main>
+        <div className="flex mb-4">
+          <Highlight title="Visibility" value={6.4} unit="miles" />
+        </div>
+        <div className="flex mb-4">
+          <Highlight title="Wind status" value={7} unit="mph" other="WSW" />
+        </div>
+        <Card date="20-07-19" weather="HeavyCloud" maxTemp={20} minTemp={10} />
+      </main>
     </div>
   );
 };

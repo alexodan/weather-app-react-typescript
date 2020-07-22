@@ -30,11 +30,10 @@ export async function fetchCurrentByCityId(
   id: string
 ): Promise<CurrentWeatherResponse> {
   const res = await fetch(
-    `${BASE_URL}?q=${id}&appid=${API_KEY}&lang=es&units=metric`
+    `${BASE_URL}?id=${id}&appid=${API_KEY}&lang=es&units=metric`
   );
   const json = await res.json();
   const { coord, weather, main } = json;
-  console.log(weather, main);
   return {
     coords: coord,
     weather: weather[0].main,
