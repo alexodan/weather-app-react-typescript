@@ -7,6 +7,8 @@ import {
   fetchCurrentByCityId,
   CurrentWeatherResponse,
   WeatherType,
+  fetchFiveDayForecast,
+  Forecast,
 } from "./API";
 import Highlight from "./components/Highlight";
 import Sidebar from "./components/Sidebar";
@@ -25,6 +27,7 @@ const App: React.FC = () => {
   const [currentWeatherInfo, setCurrentWeatherInfo] = useState(
     {} as CurrentWeatherInfo
   );
+  const [forecasts, setForecasts] = useState([]);
 
   useEffect(() => {
     fetchCurrentByCityId("3433955").then((data: CurrentWeatherResponse) => {
@@ -33,6 +36,13 @@ const App: React.FC = () => {
         temp: String(temp.current),
         condition: weather,
       } as CurrentWeatherInfo);
+    });
+    return () => {};
+  }, [city]);
+
+  useEffect(() => {
+    fetchFiveDayForecast("3433955").then((forecasts) => {
+      setForecasts(forecasts);
     });
     return () => {};
   }, [city]);
