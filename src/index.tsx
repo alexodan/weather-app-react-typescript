@@ -41,7 +41,7 @@ const App: React.FC = () => {
   }, [city]);
 
   useEffect(() => {
-    fetchFiveDayForecast("3433955").then((forecasts) => {
+    fetchFiveDayForecast("3433955").then((forecasts: Forecast[]) => {
       setForecasts(forecasts);
     });
     return () => {};
