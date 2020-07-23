@@ -7,6 +7,7 @@ const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 export type WeatherType =
   | "Clear"
   | "Clouds"
+  | "HeavyCloud"
   | "Snow"
   | "Rain"
   | "Drizzle"
@@ -28,11 +29,11 @@ export interface CurrentWeatherResponse {
   temp: { current: number; min: number; max: number; humidity: number };
 }
 
-export interface Forecast {
+export interface ForecastModel {
   date: string;
-  tempMin: number;
-  tempMax: number;
-  condition: number;
+  minTemp: number;
+  maxTemp: number;
+  condition: WeatherType;
 }
 
 export async function fetchCurrentByCityId(
@@ -55,22 +56,25 @@ export async function fetchCurrentByCityId(
   };
 }
 
-export async function fetchFiveDayForecast(id: string): Promise<Forecast[]> {
-  const res = await fetch(`${FORECAST_URL}/?id=${id}&appid=${API_KEY}`);
+export async function fetchFiveDayForecast(
+  id: string
+): Promise<ForecastModel[]> {
+  const res = await fetch(
+    `${FORECAST_URL}/?id=${id}&appid=${API_KEY}&units=metric`
+  );
   const json = await res.json();
   const { list } = json;
-  console.log(list);
   return aggregateForecastByDay(list);
 }
 
 // TODO strong typing
-function aggregateForecastByDay(forecastApiData: any): Forecast[] {
+function aggregateForecastByDay(forecastApiData: any): ForecastModel[] {
   const forecastsEachThreeHours = forecastApiData.map(
     ({ dt, main, weather }: any) => ({
       date: dt,
-      tempMin: main.temp_min,
-      tempMax: main.temp_max,
-      condition: weather.main,
+      minTemp: main.temp_min,
+      maxTemp: main.temp_max,
+      condition: weather[0].main as WeatherType,
     })
   );
   return forecastsEachThreeHours;

@@ -1,0 +1,25 @@
+import React from "react";
+import { ForecastModel } from "../API";
+import Card from "./Card";
+
+export interface ForecastProps {
+  forecasts: ForecastModel[];
+}
+
+const Forecast: React.FC<ForecastProps> = ({ forecasts }) => {
+  return (
+    <div className="flex flex-wrap">
+      {forecasts.map(({ date, condition, maxTemp, minTemp }, idx) => (
+        <Card
+          key={idx}
+          date={date}
+          weather={condition}
+          maxTemp={maxTemp}
+          minTemp={minTemp}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default Forecast;

@@ -1,13 +1,5 @@
 import React from "react";
-
-type WeatherType =
-  | "Sunny"
-  | "Rainy"
-  | "HeavyCloud"
-  | "Windy"
-  | "Stormy"
-  | "Snowy"
-  | "Foggy";
+import { WeatherType } from "../API";
 
 export interface WeatherCardProps {
   date: string;

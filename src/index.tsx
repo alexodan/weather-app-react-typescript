@@ -8,10 +8,11 @@ import {
   CurrentWeatherResponse,
   WeatherType,
   fetchFiveDayForecast,
-  Forecast,
+  ForecastModel,
 } from "./API";
 import Sidebar from "./components/Sidebar";
 import Highlights from "./components/Highlights";
+import Forecast from "./components/Forecast";
 
 const styles = {
   backgroundColor: "#100E1D",
@@ -41,7 +42,7 @@ const App: React.FC = () => {
   }, [city]);
 
   useEffect(() => {
-    fetchFiveDayForecast("3433955").then((forecasts: Forecast[]) => {
+    fetchFiveDayForecast("3433955").then((forecasts: ForecastModel[]) => {
       setForecasts(forecasts);
     });
     return () => {};
@@ -58,6 +59,7 @@ const App: React.FC = () => {
         condition={condition}
       />
       <main>
+        <Forecast forecasts={forecasts} />
         <Highlights highlights={[]} />
         <Card date="20-07-19" weather="HeavyCloud" maxTemp={20} minTemp={10} />
       </main>
