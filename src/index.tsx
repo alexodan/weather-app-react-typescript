@@ -10,8 +10,8 @@ import {
   fetchFiveDayForecast,
   Forecast,
 } from "./API";
-import Highlight from "./components/Highlight";
 import Sidebar from "./components/Sidebar";
+import Highlights from "./components/Highlights";
 
 const styles = {
   backgroundColor: "#100E1D",
@@ -24,9 +24,9 @@ interface CurrentWeatherInfo {
 
 const App: React.FC = () => {
   const [city, setCity] = useState("Buenos Aires");
-  const [currentWeatherInfo, setCurrentWeatherInfo] = useState(
-    {} as CurrentWeatherInfo
-  );
+  const [currentWeatherInfo, setCurrentWeatherInfo] = useState<
+    CurrentWeatherInfo
+  >();
   const [forecasts, setForecasts] = useState([]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const App: React.FC = () => {
       setCurrentWeatherInfo({
         temp: String(temp.current),
         condition: weather,
-      } as CurrentWeatherInfo);
+      });
     });
     return () => {};
   }, [city]);
@@ -47,22 +47,18 @@ const App: React.FC = () => {
     return () => {};
   }, [city]);
 
+  const { temp, condition } = currentWeatherInfo || {};
   return (
     <div className="h-screen" style={styles}>
       <Sidebar
-        temperature={currentWeatherInfo.temp}
+        temperature={temp}
         date={Date.now().toString()}
         city={city}
-        todayWeather={currentWeatherInfo.condition}
-        condition={currentWeatherInfo.condition}
+        todayWeather={condition}
+        condition={condition}
       />
       <main>
-        <div className="flex mb-4">
-          <Highlight title="Visibility" value={6.4} unit="miles" />
-        </div>
-        <div className="flex mb-4">
-          <Highlight title="Wind status" value={7} unit="mph" other="WSW" />
-        </div>
+        <Highlights highlights={[]} />
         <Card date="20-07-19" weather="HeavyCloud" maxTemp={20} minTemp={10} />
       </main>
     </div>
