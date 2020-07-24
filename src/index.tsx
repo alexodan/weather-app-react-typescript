@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
 import "./index.css";
-import Card from "./components/Card";
 import {
   fetchCurrentByCityId,
   CurrentWeatherResponse,
@@ -58,10 +57,9 @@ const App: React.FC = () => {
         todayWeather={condition}
         condition={condition}
       />
-      <main>
+      <main className="flex flex-col items-center justify-center h-screen">
         <Forecast forecasts={forecasts} />
         <Highlights highlights={[]} />
-        <Card date="20-07-19" weather="HeavyCloud" maxTemp={20} minTemp={10} />
       </main>
     </div>
   );

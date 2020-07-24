@@ -2,7 +2,7 @@ import React from "react";
 import { WeatherType } from "../API";
 
 export interface WeatherCardProps {
-  date: string;
+  date: number;
   weather: WeatherType;
   maxTemp: number;
   minTemp: number;
@@ -17,7 +17,7 @@ const Card: React.FC<WeatherCardProps> = (props: WeatherCardProps) => {
   const image = getWeatherIcon(weather);
 
   return (
-    <div className="w-32 overflow-hidden shadow-lg bg-indigo-900 text-gray-100 text-center p-4">
+    <div className="w-40 overflow-hidden shadow-lg bg-indigo-900 text-gray-100 text-center p-4">
       <h2>{date}</h2>
       <img src={`/public/img/${image}.png`} alt={weather} />
       <div className="flex justify-around">

@@ -1,3 +1,5 @@
+import moment from "moment";
+
 // http://api.openweathermap.org/data/2.5/weather?q=buenos%20aires&appid=1234&&lang=es&units=metric
 const WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather";
 const FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast";
@@ -30,7 +32,7 @@ export interface CurrentWeatherResponse {
 }
 
 export interface ForecastModel {
-  date: string;
+  date: number;
   minTemp: number;
   maxTemp: number;
   condition: WeatherType;
@@ -77,16 +79,19 @@ function aggregateForecastByDay(forecastApiData: any): ForecastModel[] {
       condition: weather[0].main as WeatherType,
     })
   );
-  return forecastsEachThreeHours;
-  // return forecastsEachThreeHours.slice(1).reduce((aggregatedForecasts, forecast, idx) => {
-  //   const currentDate = forecast.date;
-  //   const nextDate = forecastsEachThreeHours[idx + 1];
-  //   if (isSameDay(currentDate, nextDate)) {
-
-  //   }
-  // }, []);
+  const fiveDayForecast = forecastsEachThreeHours
+    .sort((f1: ForecastModel, f2: ForecastModel) => f1.date - f2.date)
+    .filter((_: ForecastModel, idx: number) => (idx + 1) % 8 === 0)
+    .map((forecast: ForecastModel) => ({
+      ...forecast,
+      date: format(forecast.date),
+    }));
+  return fiveDayForecast;
 }
 
-function isSameDay(date1: number, date2: number): boolean {
-  return false;
+function format(timeInMillis: number): string {
+  const time = moment.unix(timeInMillis);
+  return `${moment.weekdaysShort(
+    time.day()
+  )}, ${time.date()} ${moment.monthsShort(time.month())}`;
 }
