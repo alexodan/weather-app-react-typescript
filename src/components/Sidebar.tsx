@@ -15,7 +15,7 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
   return (
     <div className="sidebar text-gray-300 h-screen w-3/12 float-left text-center flex flex-col justify-around items-center relative">
       <button className="bg-gray-700 py-2 px-4 z-10">Search for places</button>
-      <img src={`/public/img/HeavyRain.png`} alt={todayWeather} />
+      <img src={`/public/img/${condition}.png`} alt={todayWeather} />
       <div>
         <span className="text-white text-6xl">
           {temperature && Math.round(+temperature)}
