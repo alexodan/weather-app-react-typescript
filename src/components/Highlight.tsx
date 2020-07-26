@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface HighlightItem {
-  title: string;
+  name: string;
   value: number;
   unit?: string;
   other?: string;
@@ -12,10 +12,11 @@ export interface HighlightProps {
 }
 
 const Highlight: React.FC<HighlightProps> = ({ highlight }) => {
-  const { title, value, unit, other } = highlight;
+  const { name, value, unit, other } = highlight;
+  // Use child to refactor display of units and other
   return (
-    <div className="w-64 bg-indigo-900 text-gray-100 text-center p-4 flex flex-col justify-around">
-      <h4 className="text-l">{title}</h4>
+    <div className="h-40 bg-indigo-900 text-gray-100 text-center p-4 flex flex-col justify-around">
+      <h4 className="text-l">{name}</h4>
       <h2>
         <span className="text-5xl font-black">{value}</span>
         <span> </span>

@@ -28,7 +28,11 @@ export type WeatherType =
 export interface CurrentWeatherResponse {
   coords: { long: number; lat: number };
   weather: WeatherType;
-  temp: { current: number; min: number; max: number; humidity: number };
+  wind: number;
+  visibility: number;
+  airPressure: number;
+  humidity: number;
+  temp: { current: number; min: number; max: number };
 }
 
 export interface ForecastModel {
@@ -45,15 +49,19 @@ export async function fetchCurrentByCityId(
     `${WEATHER_URL}?id=${id}&appid=${API_KEY}&lang=es&units=metric`
   );
   const json = await res.json();
-  const { coord, weather, main } = json;
+  const { coord, weather, main, visibility, wind } = json;
+  console.log(json);
   return {
     coords: coord,
     weather: weather[0].main,
+    visibility,
+    wind: wind.speed,
+    airPressure: main.pressure,
+    humidity: main.humidity,
     temp: {
       current: main.temp,
       min: main.temp_min,
       max: main.temp_max,
-      humidity: main.humidity,
     },
   };
 }

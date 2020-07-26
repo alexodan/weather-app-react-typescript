@@ -20,6 +20,8 @@ const styles = {
 interface CurrentWeatherInfo {
   temp: string;
   condition: WeatherType;
+  visibility: number;
+  wind: number;
 }
 
 const App: React.FC = () => {
@@ -27,15 +29,32 @@ const App: React.FC = () => {
   const [currentWeatherInfo, setCurrentWeatherInfo] = useState<
     CurrentWeatherInfo
   >();
+  const [highlights, setHighlights] = useState<any>([]);
   const [forecasts, setForecasts] = useState([]);
 
   useEffect(() => {
     fetchCurrentByCityId("3433955").then((data: CurrentWeatherResponse) => {
-      const { weather, temp } = data;
+      const {
+        coords,
+        weather,
+        humidity,
+        airPressure,
+        visibility,
+        wind,
+        temp,
+      } = data;
       setCurrentWeatherInfo({
         temp: String(temp.current),
         condition: weather,
+        visibility,
+        wind,
       });
+      setHighlights([
+        { name: "Wind status", value: wind, unit: "mph" },
+        { name: "Humidity", value: humidity, unit: "%" },
+        { name: "Visibility", value: visibility, unit: "miles" },
+        { name: "Air Pressure", value: airPressure, unit: "mb" },
+      ]);
     });
     return () => {};
   }, [city]);
@@ -59,7 +78,7 @@ const App: React.FC = () => {
       />
       <main className="flex flex-col items-center justify-center h-screen">
         <Forecast forecasts={forecasts} />
-        <Highlights highlights={[]} />
+        <Highlights highlights={highlights} />
       </main>
     </div>
   );
