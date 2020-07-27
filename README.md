@@ -10,6 +10,8 @@
 
 This is a React application backed by a Weather API (https://openweathermap.org/api)
 
+![Desktop Capture](https://github.com/alexodan/weather-app-react-typescript/blob/master/1.PNG)
+
 ### Installation
 
 ```shell
