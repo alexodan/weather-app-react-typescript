@@ -17,9 +17,13 @@ const Card: React.FC<WeatherCardProps> = (props: WeatherCardProps) => {
   const image = getWeatherIcon(weather);
 
   return (
-    <div className="w-40 overflow-hidden shadow-lg bg-indigo-900 text-gray-100 text-center p-4">
+    <div className="w-40 overflow-hidden shadow-lg bg-indigo-900 text-gray-100 text-center py-4 flex flex-col justify-around">
       <h2>{date}</h2>
-      <img src={`/public/img/${image}.png`} alt={weather} />
+      <img
+        style={{ height: "140px", width: "140px" }}
+        src={`/public/img/${image}.png`}
+        alt={weather}
+      />
       <div className="flex justify-around">
         <span className="max-temp">{`${maxTemp}°C`}</span>
         <span className="min-temp">{`${minTemp}°C`}</span>

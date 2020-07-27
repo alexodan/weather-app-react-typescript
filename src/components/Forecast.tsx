@@ -8,7 +8,7 @@ export interface ForecastProps {
 
 const Forecast: React.FC<ForecastProps> = ({ forecasts }) => {
   return (
-    <div className="flex flex-wrap justify-between max-w-5xl min-w-2/3 w-2/3">
+    <div className="flex flex-wrap justify-between max-w-6xl min-w-2/3 w-2/3">
       {forecasts.map(({ date, condition, maxTemp, minTemp }, idx) => (
         <Card
           key={idx}
