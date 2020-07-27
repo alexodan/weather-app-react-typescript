@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./Sidebar.css";
+import { format } from "../API";
 
 export interface SidebarProps {
   todayWeather: string;
@@ -22,9 +23,9 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
         </span>
         <span className="text-gray-400 text-3xl">°C</span>
       </div>
-      <h3>{condition}</h3>
-      <p>{date}</p>
-      <span>{city}</span>
+      <h3 className="text-2xl">{condition}</h3>
+      <p className="text-l">{format(+date)}</p>
+      <span className="text-l">{city}</span>
     </div>
   );
 };

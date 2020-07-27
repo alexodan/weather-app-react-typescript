@@ -97,7 +97,7 @@ function aggregateForecastByDay(forecastApiData: any): ForecastModel[] {
   return fiveDayForecast;
 }
 
-function format(timeInMillis: number): string {
+export function format(timeInMillis: number): string {
   const time = moment.unix(timeInMillis);
   return `${moment.weekdaysShort(
     time.day()
